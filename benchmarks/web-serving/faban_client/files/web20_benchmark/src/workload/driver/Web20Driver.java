@@ -48,7 +48,8 @@ import workload.driver.Web20Client.ClientState;
 									 * of driverConfig in run.xml
 									 */
 				 threadPerScale = 1,
-				 percentiles = {  "95"})
+				 percentiles = {"95","99","99.9"},
+                 responseTimeUnit = java.util.concurrent.TimeUnit.MILLISECONDS )
 
 /**
  * The mix of operations and their proabilities.
@@ -105,8 +106,8 @@ import workload.driver.Web20Client.ClientState;
 		 cycleType = CycleType.THINKTIME)
 
 */
-@FixedTime(cycleTime = 10000,
-	cycleType = CycleType.THINKTIME, cycleDeviation = 1000)
+@FixedTime(cycleTime = 2000,
+	cycleType = CycleType.THINKTIME, cycleDeviation = 10)
 // cycle time or think time - count from the start of prev operation or end
 
 /**
@@ -315,8 +316,8 @@ public class Web20Driver {
 	}
 	
 	@BenchmarkOperation(name = "BrowsetoElgg", 
-						max90th = 3.0,
-						percentileLimits= {3.0},
+						//max90th = 3.0,
+						percentileLimits= {500,1000,2000},
 						timing = Timing.MANUAL)
 	/**
 	 * A new client accesses the home page. The "new client" is selected from a list maintained of possible users and their passwords.
@@ -368,7 +369,8 @@ public class Web20Driver {
 	}
 
 @BenchmarkOperation(name = "AccessHomepage", 
-						max90th = 3.0, percentileLimits= {3.0},
+						//max90th = 3.0, 
+						percentileLimits= {500,1000,2000},
 						timing = Timing.MANUAL)
 	/**
 	 * A logged in client accesses the home page
@@ -403,7 +405,8 @@ public class Web20Driver {
 	}
 
 	@BenchmarkOperation(name = "DoLogin", 
-						max90th = 3.0, percentileLimits= {3.0}, 
+						//max90th = 3.0, 
+						percentileLimits= {500,1000,2000},
 						timing = Timing.MANUAL)
 	public void doLogin() throws Exception {
 		boolean success = false;
@@ -461,7 +464,10 @@ public class Web20Driver {
 			elggMetrics.attemptLoginCnt++;
 	}
 
-	@BenchmarkOperation(name = "UpdateActivity", max90th = 1.0, percentileLimits= {1.0}, timing = Timing.MANUAL)
+	@BenchmarkOperation(name = "UpdateActivity",// max90th = 1.0, 
+                        //percentileLimits= {1.0}, 
+						percentileLimits= {500,750,1000},
+                        timing = Timing.MANUAL)
 	public void updateActivity() throws Exception {
 		boolean success = false;
 
@@ -504,7 +510,8 @@ public class Web20Driver {
 	 * @throws Exception
 	 */
 	@BenchmarkOperation(name = "AddFriend", 
-						max90th = 3.0, percentileLimits= {3.0},
+						//max90th = 3.0, 
+						percentileLimits= {500,750,1000},
 						timing = Timing.MANUAL)
 	public void addFriend() throws Exception {
 		boolean success = false;
@@ -562,7 +569,9 @@ public class Web20Driver {
 	 * Receive a chat message.
 	 */
 	@BenchmarkOperation(name = "ReceiveChatMessage", 
-			max90th = 1.0, percentileLimits= {1.0},
+			//max90th = 1.0, 
+            //percentileLimits= {1.0},
+			percentileLimits= {500,750,1000},
 			timing = Timing.MANUAL)
 	public void receiveChatMessage() throws Exception {
 		boolean success = false;
@@ -601,7 +610,8 @@ public class Web20Driver {
 	 * @throws Exception
 	 */
 	@BenchmarkOperation(name = "SendChatMessage", 
-						max90th = 1.0, percentileLimits= {1.0},
+						//max90th = 1.0, 
+			            percentileLimits= {500,750,1000},
 						timing = Timing.MANUAL)
 	public void sendChatMessage() throws Exception {
 		boolean success = false;
@@ -714,7 +724,8 @@ public class Web20Driver {
 	 * @throws Exception
 	 */
 	@BenchmarkOperation(name = "PostSelfWall", 
-						max90th = 1.0, percentileLimits= {1.0},
+						//max90th = 1.0, 
+			            percentileLimits= {500,750,1000},
 						timing = Timing.MANUAL)
 	public void postSelfWall() throws Exception {
 		boolean success = false;
@@ -769,7 +780,8 @@ public class Web20Driver {
 	 * @throws Exception
 	 */
 	@BenchmarkOperation(name = "Logout", 
-						max90th = 3.0, percentileLimits= {3.0},
+						//max90th = 3.0, 
+			            percentileLimits= {500,750,1000},
 						timing = Timing.MANUAL)
 	public void logout() throws Exception {
 		boolean success = false;
@@ -819,7 +831,8 @@ public class Web20Driver {
 	 * 
 	 */
 	@BenchmarkOperation(name = "Register", 
-						max90th = 3.0, percentileLimits= {3.0},
+						//max90th = 3.0, 
+						percentileLimits= {500,1000,2000},
 						timing = Timing.MANUAL)
 	public void register() throws Exception {
 		boolean success = false;

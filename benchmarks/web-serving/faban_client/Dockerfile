@@ -11,6 +11,8 @@ RUN apt-get update && apt-get install -y \
 
 RUN wget http://faban.org/downloads/faban-kit-latest.tar.gz
 RUN tar zxvf faban-kit-latest.tar.gz
+RUN sed -e 's/\/bin\/sh/\/bin\/bash/g' -i /faban/master/bin/startup.sh
+RUN sed -e 's/\/bin\/sh/\/bin\/bash/g' -i /faban/master/bin/catalina.sh
 
 COPY files/web20_benchmark /web20_benchmark
 

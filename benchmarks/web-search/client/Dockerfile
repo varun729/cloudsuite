@@ -1,4 +1,4 @@
-FROM cloudsuite/java:openjdk7
+FROM cloudsuite/java:openjdk7-aarch64
 LABEL maintainer="Siddharth Gupta <siddharth.gupta@epfl.ch>"
 
 ENV FABAN_USER faban
